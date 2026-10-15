@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-void: #04080a;
+  --color-panel: rgb(7 15 17 / 0.78);
+  --color-line: rgb(79 240 223 / 0.16);
+  --color-ink: #d5e4e6;
+  --color-muted: #7c9195;
+  --color-accent: #4ff0df;
+  --color-accent-dim: #1f7d76;
+  --color-buff: #4ff0df;
+  --color-nerf: #ff5c7a;
+  --color-warn: #ffb547;
+
+  --font-display: 'Rajdhani', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
+
+  --animate-ping-slow: ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    background-color: var(--color-void);
+    background-image:
+      radial-gradient(ellipse 70% 55% at 50% 45%, rgb(31 125 118 / 0.22), transparent 70%),
+      linear-gradient(rgb(79 240 223 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(79 240 223 / 0.035) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      48px 48px,
+      48px 48px;
+    -webkit-font-smoothing: antialiased;
+    /* Let the canvas own touch gestures; overlays opt back in. */
+    touch-action: none;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Angled-corner frame used by every overlay panel. */
+  .hud-panel {
+    background: var(--color-panel);
+    border: 1px solid var(--color-line);
+    backdrop-filter: blur(14px) saturate(1.2);
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+
+  .hud-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
